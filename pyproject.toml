@@ -1,0 +1,38 @@
+[project]
+name = "sms-test-v3"
+version = "3.1.0"
+description = "Mobile interface for opt-in testing of your own SMS API"
+requires-python = ">=3.11"
+dependencies = [
+  "flet>=0.86,<1.0",
+  "requests>=2.31,<3",
+  "phonenumbers>=8.13,<10",
+]
+
+[tool.flet]
+project = "sms_test_v3"
+product = "SMS TEST"
+org = "com.smstestdemo"
+description = "SMS API testing with URL profiles"
+
+[tool.flet.android]
+bundle_id = "com.smstestdemo.smstestv3"
+
+[tool.flet.android.permission]
+"android.permission.INTERNET" = true
+
+# Tell flet build where the Python entry point lives.
+[tool.flet.app]
+path = "src"
+module = "main"
+
+# Flet's command-line builder is needed by GitHub Actions during CI builds.
+# Keep this separate from runtime dependencies bundled into the APK.
+[dependency-groups]
+dev = [
+  "flet-cli>=0.86,<1.0",
+]
+
+# Fix Dart JNI dependency mismatch on Flet 0.86.5 / Flutter 3.44.8.
+[tool.flet.flutter.pubspec.dependency_overrides]
+jni = "^1.1.0"
